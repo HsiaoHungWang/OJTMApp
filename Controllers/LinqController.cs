@@ -60,5 +60,12 @@ namespace OJTMApp.Controllers
 
             // return View();
         }
+    
+    
+        public IActionResult Search()
+        {
+            var products = _context.Products.ToList();
+            return View(products);
+        }
     }
 }
