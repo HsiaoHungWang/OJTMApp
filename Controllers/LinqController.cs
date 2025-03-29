@@ -64,7 +64,16 @@ namespace OJTMApp.Controllers
     
         public IActionResult Search()
         {
-            var products = _context.Products.ToList();
+            int pageSize = 10; //每頁顯示10筆資料
+            int page = 5; //目前在第一頁
+            //page = 1 => Skip(0) => 取得第1-10筆資料
+            //page = 2 => Skip(10) => 取得第11-20筆資料
+            //page = 3 => Skip(20) => 取得第21-30筆資料
+            var products = _context.Products
+                            .OrderByDescending(p => p.UnitPrice)
+                            .Skip((page-1)*pageSize)
+                           .Take(pageSize)
+                           .ToList();
             return View(products);
         }
     }
