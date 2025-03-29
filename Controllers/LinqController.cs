@@ -33,7 +33,8 @@ namespace OJTMApp.Controllers
             //}
 
             //刪除
-            //找到你要刪除的資料
+            //找到你要刪除的資料 Find()根據主鍵CategoryID查詢資料表的記錄
+            //select * from Categories where CategoryID = 9 
             //Category? category = _context.Categories.Find(9);
             //if (category != null)
             //{
@@ -43,7 +44,7 @@ namespace OJTMApp.Controllers
 
             //_context.SaveChanges(); //寫入資料庫
 
-           
+
             return View();
         }
     }
