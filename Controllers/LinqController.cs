@@ -44,8 +44,14 @@ namespace OJTMApp.Controllers
 
             //_context.SaveChanges(); //寫入資料庫
 
+            //查詢
+            var categories = from c in _context.Categories
+                             //where c.CategoryName == "Beverages"
+                             select c;
+            //查到的資料要傳給View
+            return View(categories);
 
-            return View();
+            // return View();
         }
     }
 }
