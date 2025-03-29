@@ -50,7 +50,10 @@ namespace OJTMApp.Controllers
             //                 select c;
             //方法語法LINQ Method Syntax
             //_context.Categories.Where(c=>c.CategoryName== "Beverages").ToList();
-            var categories = _context.Categories.ToList();  
+            //var categories = _context.Categories.ToList();
+
+            //關鍵字搜尋，相似度搜尋 where CategoryName like '%e%'
+            var categories = _context.Categories.Where(c => c.CategoryName.Contains("ea")).ToList();
 
             //查到的資料要傳給View
             return View(categories);
