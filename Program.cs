@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OJTMApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Dependency Injection 容器
+//NorthwindConnection 是 appsettings.json 連線串的名稱
+string? connectionString = builder.Configuration.GetConnectionString("NorthwindConnection");
+builder.Services.AddDbContext<NorthwindContext>(options => options.UseSqlServer(connectionString));
+
+
 //把類別變成物件 => 管理物件的生命週期
 builder.Services.AddScoped<INotificationService, EmailNotificationService>(); //每一個Requesst會產生一個物件
 //builder.Services.AddTransient<INotificationService, SMSNotificationService>();//每一次執行都會產生一個物件
@@ -13,6 +19,7 @@ builder.Services.AddScoped<INotificationService, EmailNotificationService>(); //
 
 
 var app = builder.Build();
+
 
 
 //Middlewares 中間層(件)
