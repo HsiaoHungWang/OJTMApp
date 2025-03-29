@@ -44,10 +44,14 @@ namespace OJTMApp.Controllers
 
             //_context.SaveChanges(); //寫入資料庫
 
-            //查詢
-            var categories = from c in _context.Categories
-                             //where c.CategoryName == "Beverages"
-                             select c;
+            //查詢語法LINQ Query Syntax
+            //var categories = from c in _context.Categories
+            //                 //where c.CategoryName == "Beverages"
+            //                 select c;
+            //方法語法LINQ Method Syntax
+            //_context.Categories.Where(c=>c.CategoryName== "Beverages").ToList();
+            var categories = _context.Categories.ToList();  
+
             //查到的資料要傳給View
             return View(categories);
 
