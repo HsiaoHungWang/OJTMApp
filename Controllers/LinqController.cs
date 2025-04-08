@@ -72,9 +72,9 @@ namespace OJTMApp.Controllers
             //                .ToList();
 
             //todo2 查詢庫存量(UnitsInStock)低於安全存量(ReorderLevel)的商品
-            var products = _context.Products
-                            .Where(p => p.UnitsInStock < p.ReorderLevel)                            
-                            .ToList();
+            //var products = _context.Products
+            //                .Where(p => p.UnitsInStock < p.ReorderLevel)                            
+            //                .ToList();
 
 
             //先做 todo1 跟 todo2，todo3 當課後練習
@@ -96,6 +96,12 @@ namespace OJTMApp.Controllers
             //                .Skip((page-1)*pageSize)
             //               .Take(pageSize)
             //               .ToList();
+
+
+            //前十個熱銷商品
+            var products = _context.Products.OrderByDescending(p=>p.OrderDetails.Sum(od => od.Quantity))
+                .Take(10)
+                .ToList();
 
             return View(products);
         }
