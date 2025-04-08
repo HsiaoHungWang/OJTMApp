@@ -64,16 +64,38 @@ namespace OJTMApp.Controllers
     
         public IActionResult Search()
         {
-            int pageSize = 10; //每頁顯示10筆資料
-            int page = 5; //目前在第一頁
-            //page = 1 => Skip(0) => 取得第1-10筆資料
-            //page = 2 => Skip(10) => 取得第11-20筆資料
-            //page = 3 => Skip(20) => 取得第21-30筆資料
+            //todo1 查詢商品最高價格(UnitPrice)的前五筆資料
+            //var products = _context.Products
+            //                .OrderByDescending(p => p.UnitPrice)
+            //                .Take(5)
+            //                .ToList();
+
+            //todo2 查詢庫存量(UnitsInStock)低於安全存量(ReorderLevel)的商品
             var products = _context.Products
-                            .OrderByDescending(p => p.UnitPrice)
-                            .Skip((page-1)*pageSize)
-                           .Take(pageSize)
-                           .ToList();
+                            .Where(p => p.UnitsInStock < p.ReorderLevel)                            
+                            .ToList();
+
+
+            //先做 todo1 跟 todo2，todo3 當課後練習
+            //todo3 根據關鍵字、分類編號及價格區間來查詢商品
+            //string keyword = "ch";
+            //int? categoryId = 1;
+            //decimal? minPrice = 10;
+            //decimal? maxPrice = 100;
+
+
+
+            //int pageSize = 10; //每頁顯示10筆資料
+            //int page = 5; //目前在第一頁
+            ////page = 1 => Skip(0) => 取得第1-10筆資料
+            ////page = 2 => Skip(10) => 取得第11-20筆資料
+            ////page = 3 => Skip(20) => 取得第21-30筆資料
+            //var products = _context.Products
+            //                .OrderByDescending(p => p.UnitPrice)
+            //                .Skip((page-1)*pageSize)
+            //               .Take(pageSize)
+            //               .ToList();
+
             return View(products);
         }
     }

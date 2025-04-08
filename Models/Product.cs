@@ -17,10 +17,12 @@ public partial class Product
 
     public decimal? UnitPrice { get; set; }
 
+    //庫存量
     public short? UnitsInStock { get; set; }
 
     public short? UnitsOnOrder { get; set; }
 
+    //安全存量
     public short? ReorderLevel { get; set; }
 
     public bool Discontinued { get; set; }
