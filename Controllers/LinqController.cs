@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OJTMApp.Models;
 
 namespace OJTMApp.Controllers
@@ -97,6 +98,15 @@ namespace OJTMApp.Controllers
             //               .ToList();
 
             return View(products);
+        }
+
+
+        public IActionResult MultipleTables()
+        {
+            var orders = _context.Orders
+                               .Include(o => o.Customer)
+                               .Include(o => o.Employee).Take(10).ToList();
+            return View(orders);
         }
     }
 }

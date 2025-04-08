@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OJTMApp.Models.Order>
+@{
+    ViewData["Title"] = "MultipleTables";
+}
+
+<h1>MultipleTables</h1>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>OrderDate</th>
+            <th>OrderId</th>
+            <th>Customer</th>
+            <th>Employee</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var order in Model)
+        {
+            <tr>
+                <td>@order.OrderDate</td>
+                <td>@order.OrderId</td>
+                <td>
+                    @if (order.Customer != null)
+                    {
+                        @order.Customer.CompanyName
+                    }
+                    else
+                    {
+                        <span>X</span>
+                    }
+                  </td>
+                <td>
+                    @if (order.Employee != null)
+                    {
+                        @order.Employee.FirstName
+                    }
+                    else
+                    {
+                        <span>X</span>
+                    }
+                    </td>
+            </tr>
+        }
+    </tbody>
+</table>
