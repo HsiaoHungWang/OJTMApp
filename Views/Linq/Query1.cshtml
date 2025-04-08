@@ -1,29 +1,26 @@
-﻿@* @model IEnumerable<OJTMApp.Models.Product> *@
+﻿@model IEnumerable<OJTMApp.Models.ViewModel.Top10ProductViewModel>
 @{
-    ViewData["Title"] = "Search";
+    ViewData["Title"] = "Query1";
 }
 
-<h1>Search</h1>
+<h1>Query1</h1>
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>ProductID</th>
             <th>ProductName</th>
-            <th>UnitPrice</th>
-            <th>UnitsInStock</th>
-            <th>安全存量</th>
+            <th>UnitPrice</th>           
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
-        {          
+        {
             <tr>
                 <td>@item.ProductId</td>
                 <td>@item.ProductName</td>
                 <td>@item.UnitPrice</td>
-                <td>@item.UnitsInStock</td>
-                <td>@item.ReorderLevel</td>
+               
             </tr>
         }
 </table>
-

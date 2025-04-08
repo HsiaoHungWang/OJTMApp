@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OJTMApp.Models;
+using OJTMApp.Models.ViewModel;
 
 namespace OJTMApp.Controllers
 {
@@ -99,9 +100,11 @@ namespace OJTMApp.Controllers
 
 
             //前十個熱銷商品
-            var products = _context.Products.OrderByDescending(p=>p.OrderDetails.Sum(od => od.Quantity))
+            var products = _context.Products.OrderByDescending(p => p.OrderDetails.Sum(od => od.Quantity))
                 .Take(10)
                 .ToList();
+
+
 
             return View(products);
         }
@@ -113,6 +116,34 @@ namespace OJTMApp.Controllers
                                .Include(o => o.Customer)
                                .Include(o => o.Employee).Take(10).ToList();
             return View(orders);
+        }
+    
+    
+        public IActionResult Query1()
+        {
+            //讀取特定欄位的資料
+            //var top10Products = _context.Products.OrderByDescending(p => p.OrderDetails.Sum(od => od.Quantity))
+            //    .Select(p => new
+            //    {
+            //        p.ProductId,
+            //        p.ProductName,
+            //        p.UnitPrice                   
+            //    })
+            //    .Take(10)
+            //    .ToList();
+
+            //使用ViewModel
+            var top10Products = _context.Products.OrderByDescending(p => p.OrderDetails.Sum(od => od.Quantity))
+                .Select(p => new Top10ProductViewModel
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    UnitPrice = p.UnitPrice
+                })
+               .Take(10)
+                .ToList();
+
+            return View(top10Products);
         }
     }
 }
