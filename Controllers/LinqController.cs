@@ -155,6 +155,7 @@ namespace OJTMApp.Controllers
 
 
         //GroupBy()
+        //統計客戶訂單數量及總金額
         public IActionResult Query2()
         {
             //var customerOrders = _context.Orders.GroupBy(o => o.CustomerId)
@@ -174,7 +175,8 @@ namespace OJTMApp.Controllers
                 .Select(g => new CustomerOrdersViewModel
                 {
                     CustomerId = g.Key ?? string.Empty ,
-                    CompanyName = g.FirstOrDefault().Customer.CompanyName,
+                    //CompanyName = g.FirstOrDefault().Customer.CompanyName,
+                    CompanyName = g.Select(o => o.Customer != null ? o.Customer.CompanyName : "").FirstOrDefault(),
                     TotalOrders = g.Count(),
                     TotalAmount = g.Sum(o => o.OrderDetails.Sum(od => od.Quantity * od.UnitPrice))
                 })
