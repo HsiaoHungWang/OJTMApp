@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OJTMApp.Models;
 using OJTMApp.Models.ViewModel;
+using System.Transactions;
 
 namespace OJTMApp.Controllers
 {
@@ -62,8 +63,67 @@ namespace OJTMApp.Controllers
 
             // return View();
         }
-    
-    
+
+
+        //Transaction(交易)
+        public IActionResult Index1()
+        {
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                //新增一筆訂單資料
+                var newOrder = new Order
+                {
+                    CustomerId = "VINET",
+                    OrderDate = DateTime.Now,
+                    EmployeeId = 5
+                };
+
+                _context.Orders.Add(newOrder);//新增一筆資料
+                _context.SaveChanges();
+
+                //再新增量兩筆訂單明細資料
+                var orderDetail1 = new List<OrderDetail>
+                {
+                    new OrderDetail
+                    {
+                        OrderId = newOrder.OrderId,
+                        ProductId = 1,
+                        UnitPrice = 10,
+                        Quantity = 2
+                    },
+                    new OrderDetail
+                    {
+                        OrderId = newOrder.OrderId,
+                        ProductId = 2,
+                        UnitPrice = 20,
+                        Quantity = 3
+                    }
+                };
+                _context.OrderDetails.AddRange(orderDetail1);//新增多筆資料
+                _context.SaveChanges(); 
+
+
+                //確認這次的異動成功
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                //還原回異動前的狀態
+                transaction.Rollback();
+                throw;
+            }
+            
+               
+           
+
+            
+               
+
+
+
+                return View();
+        }
         public IActionResult Search()
         {
             //todo1 查詢商品最高價格(UnitPrice)的前五筆資料
@@ -187,6 +247,14 @@ namespace OJTMApp.Controllers
 
 
             return View(customerOrders);
+        }
+    
+    
+        //統計商品的銷售數量及總銷售額，顯示商品編號及名稱，Supplier CompanyName
+        //GroupBy() + ViewModel
+        public IActionResult TodoGroupBy()
+        {
+            return View();
         }
     }
 }
