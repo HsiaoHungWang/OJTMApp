@@ -80,10 +80,16 @@ namespace OJTMApp.Controllers
 
             //先做 todo1 跟 todo2，todo3 當課後練習
             //todo3 根據關鍵字、分類編號及價格區間來查詢商品
-            //string keyword = "ch";
-            //int? categoryId = 1;
-            //decimal? minPrice = 10;
-            //decimal? maxPrice = 100;
+            string keyword = "ch";
+            int? categoryId = 1;
+            decimal? minPrice = 10;
+            decimal? maxPrice = 100;
+            var products = _context.Products
+                .Where(p => p.ProductName.Contains(keyword) &&
+                p.CategoryId == categoryId &&
+                p.UnitPrice >= minPrice && p.UnitPrice <= maxPrice)
+                .ToList();
+
 
 
 
@@ -100,10 +106,11 @@ namespace OJTMApp.Controllers
 
 
             //前十個熱銷商品
-            var products = _context.Products.OrderByDescending(p => p.OrderDetails.Sum(od => od.Quantity))
-                .Take(10)
-                .ToList();
+            //var products = _context.Products.OrderByDescending(p => p.OrderDetails.Sum(od => od.Quantity))
+            //    .Take(10)
+            //    .ToList();
 
+           
 
 
             return View(products);
@@ -144,6 +151,40 @@ namespace OJTMApp.Controllers
                 .ToList();
 
             return View(top10Products);
+        }
+
+
+        //GroupBy()
+        public IActionResult Query2()
+        {
+            //var customerOrders = _context.Orders.GroupBy(o => o.CustomerId)
+            //    .Select(g => new
+            //    {
+            //        CustomerId = g.Key,
+            //        CompanyName = g.FirstOrDefault().Customer.CompanyName,  
+            //        TotalOrders = g.Count(),
+            //        TotalAmount = g.Sum(o => o.OrderDetails.Sum(od=>od.Quantity * od.UnitPrice))
+            //    })
+            //    .OrderByDescending(g => g.TotalAmount)
+            //    .Take(10)
+            //    .ToList();
+
+            //使用ViewModel
+            var customerOrders = _context.Orders.GroupBy(o => o.CustomerId)
+                .Select(g => new CustomerOrdersViewModel
+                {
+                    CustomerId = g.Key ?? string.Empty ,
+                    CompanyName = g.FirstOrDefault().Customer.CompanyName,
+                    TotalOrders = g.Count(),
+                    TotalAmount = g.Sum(o => o.OrderDetails.Sum(od => od.Quantity * od.UnitPrice))
+                })
+                .OrderByDescending(g => g.TotalAmount)
+                .Take(10)
+                .ToList();
+
+
+
+            return View(customerOrders);
         }
     }
 }

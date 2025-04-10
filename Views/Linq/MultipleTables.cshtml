@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OJTMApp.Models.Order>
+﻿ @model IEnumerable<OJTMApp.Models.Order> 
 @{
     ViewData["Title"] = "MultipleTables";
 }
@@ -17,6 +17,7 @@
     <tbody>
         @foreach(var order in Model)
         {
+            
             <tr>
                 <td>@order.OrderDate</td>
                 <td>@order.OrderId</td>

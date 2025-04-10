@@ -43,7 +43,7 @@ public partial class Employee
 
     public virtual ICollection<Employee> InverseReportsToNavigation { get; set; } = new List<Employee>();
 
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();  //1對多的關係 1個員工可以有多筆訂單
 
     public virtual Employee? ReportsToNavigation { get; set; }
 
