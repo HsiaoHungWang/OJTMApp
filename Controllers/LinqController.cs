@@ -254,7 +254,16 @@ namespace OJTMApp.Controllers
         //GroupBy() + ViewModel
         public IActionResult TodoGroupBy()
         {
-            return View();
+            var productOrders = _context.OrderDetails.GroupBy(od => od.Product.ProductName)
+                .Select(g => new ProductOrdersViewModel
+                {
+                    ProductName = g.Key,
+                    SupplierName = g.Select(od => od.Product.Supplier != null ? od.Product.Supplier.CompanyName : "").FirstOrDefault(),
+                    TotalQuantity = g.Sum(od => od.Quantity),
+                    TotalPrice = g.Sum(od => od.Quantity * od.UnitPrice)
+                }).ToList();
+               
+            return View(productOrders);
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<OJTMApp.Models.ViewModel.ProductOrdersViewModel>
+@{
+    ViewData["Title"] = "TodoGroupBy";
+}
+
+<h1>統計商品的銷售數量及總銷售額，顯示商品名稱，供應商名稱</h1>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>商品名稱</th>
+            <th>供應商名稱</th>
+            <th>銷售數量</th>
+            <th>總銷售額</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.SupplierName</td>
+                <td>@item.TotalQuantity</td>
+                <td>@item.TotalPrice</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
