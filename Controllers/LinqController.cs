@@ -74,7 +74,7 @@ namespace OJTMApp.Controllers
                 //新增一筆訂單資料
                 var newOrder = new Order
                 {
-                    CustomerId = "VINET",
+                    CustomerId = "PERIC",
                     OrderDate = DateTime.Now,
                     EmployeeId = 5
                 };
@@ -88,7 +88,7 @@ namespace OJTMApp.Controllers
                     new OrderDetail
                     {
                         OrderId = newOrder.OrderId,
-                        ProductId = 1,
+                        ProductId = 1234,
                         UnitPrice = 10,
                         Quantity = 2
                     },

@@ -69,6 +69,7 @@ public partial class NorthwindContext : DbContext
 
     public virtual DbSet<Territory> Territories { get; set; }
 
+   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -535,6 +536,7 @@ public partial class NorthwindContext : DbContext
         {
             entity.Property(e => e.ShipperId).HasColumnName("ShipperID");
             entity.Property(e => e.CompanyName).HasMaxLength(40);
+            entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.Phone).HasMaxLength(24);
         });
 
