@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OJTMApp.Models;
+using OJTMApp.Models.ClassDB;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddControllersWithViews();
 //NorthwindConnection 是 appsettings.json 連線串的名稱
 string? connectionString = builder.Configuration.GetConnectionString("NorthwindConnection");
 builder.Services.AddDbContext<NorthwindContext>(options => options.UseSqlServer(connectionString));
+
+string? connectionString1 = builder.Configuration.GetConnectionString("ClassDBConnection");
+builder.Services.AddDbContext<ClassDbContext>(options => options.UseSqlServer(connectionString1));
 
 
 //把類別變成物件 => 管理物件的生命週期
