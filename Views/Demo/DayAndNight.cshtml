@@ -25,7 +25,7 @@
 <a href="~/demo/settheme?theme=night" class="btn btn-secondary">Night</a>
 
 <!--//todo6 讓View能夠根據使用者的選擇來顯示不同的樣式-->
-<div id="div1" class="day">
-    <h2>白天</h2>
+<div id="div1" class="@ViewData["theme"]">
+    <h2>@ViewData["message"]</h2>
 </div>
 
