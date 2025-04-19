@@ -5,10 +5,10 @@ namespace OJTMApp.Controllers
 {
     public class DemoController : Controller
     {
-       // public async Task<IActionResult> Index()
-            public IActionResult Index()
+        // public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-           // await Task.Delay(1000); //模擬非同步的工作
+            // await Task.Delay(1000); //模擬非同步的工作
 
             // HTTPContext => HTTP 協定的相關資訊  Request/Response
             //HttpContext.Request => HttpRequest
@@ -65,5 +65,12 @@ namespace OJTMApp.Controllers
 
             //return View();
         }
+    
+       public IActionResult About()
+        {
+            //return View(); //回應的是About.cshtml
+            return View("Index"); //回應的是Index.cshtml
+        }
     }
+
 }
