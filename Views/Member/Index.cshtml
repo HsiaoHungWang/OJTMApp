@@ -8,6 +8,20 @@
 @* <img src="~/member/avatar/5" alt="avatar" /> *@
 <p>登入帳號：@ViewData["name"]</p>
 <p>使用者資料：@ViewData["userData"]</p>
+<p>localStorage：<span id="span1"></span></p>
 <hr />
 <a href="~/member/deleteSession">刪除Session</a>
+
+<!--目前的JS寫法不好-->
+<script>
+    //localStorage 的寫入
+    // localStorage.setItem("name", "小明");
+
+     //localStorage 的讀取
+     // const userName = localStorage.getItem("name");
+     // document.querySelector('#span1').textContent = userName;
+
+     //localStorage的刪除
+     //localStorage.removeItem("name");
+</script>
 
