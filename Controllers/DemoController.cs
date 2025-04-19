@@ -69,7 +69,15 @@ namespace OJTMApp.Controllers
        public IActionResult About()
         {
             //return View(); //回應的是About.cshtml
-            return View("Index"); //回應的是Index.cshtml
+
+            // return View("Index"); //回應的是Index.cshtml
+
+            return RedirectToAction("Index"); //先回到瀏覽器，再從瀏覽器Request Demo/Index
+            //return RedirectToAction("Index","Member");
+
+            //return Redirect("~/demo/index");
+            //return Redirect("~/member/index");
+            //return Redirect("https://www.ispan.com.tw");
         }
     }
 
