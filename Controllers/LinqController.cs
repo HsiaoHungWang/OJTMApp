@@ -13,7 +13,7 @@ namespace OJTMApp.Controllers
         public LinqController(NorthwindContext context) {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //新增
             //準備好要新增的資料
@@ -56,7 +56,7 @@ namespace OJTMApp.Controllers
             //var categories = _context.Categories.ToList();
 
             //關鍵字搜尋，相似度搜尋 where CategoryName like '%e%'
-            var categories = _context.Categories.Where(c => c.CategoryName.Contains("ea")).ToList();
+            var categories = await _context.Categories.Where(c => c.CategoryName.Contains("ea")).ToListAsync();
 
             //查到的資料要傳給View
             return View(categories);
@@ -66,9 +66,9 @@ namespace OJTMApp.Controllers
 
 
         //Transaction(交易)
-        public IActionResult Index1()
+        public async Task<IActionResult> Index1()
         {
-            using var transaction = _context.Database.BeginTransaction();
+            using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
                 //新增一筆訂單資料
@@ -79,8 +79,8 @@ namespace OJTMApp.Controllers
                     EmployeeId = 5
                 };
 
-                _context.Orders.Add(newOrder);//新增一筆資料
-                _context.SaveChanges();
+                await _context.Orders.AddAsync(newOrder);//新增一筆資料
+                await _context.SaveChangesAsync();
 
                 //再新增量兩筆訂單明細資料
                 var orderDetail1 = new List<OrderDetail>
@@ -100,17 +100,17 @@ namespace OJTMApp.Controllers
                         Quantity = 3
                     }
                 };
-                _context.OrderDetails.AddRange(orderDetail1);//新增多筆資料
-                _context.SaveChanges(); 
+                await _context.OrderDetails.AddRangeAsync(orderDetail1);//新增多筆資料
+                await _context.SaveChangesAsync(); 
 
 
                 //確認這次的異動成功
-                transaction.Commit();
+                 await transaction.CommitAsync();
             }
             catch (Exception)
             {
                 //還原回異動前的狀態
-                transaction.Rollback();
+                await transaction.RollbackAsync();
                 throw;
             }
             

@@ -5,8 +5,11 @@ namespace OJTMApp.Controllers
 {
     public class DemoController : Controller
     {
-        public IActionResult Index()
+       // public async Task<IActionResult> Index()
+            public IActionResult Index()
         {
+           // await Task.Delay(1000); //模擬非同步的工作
+
             // HTTPContext => HTTP 協定的相關資訊  Request/Response
             //HttpContext.Request => HttpRequest
 
@@ -43,10 +46,10 @@ namespace OJTMApp.Controllers
             //}
 
             //User-Agent
-            var userAgent = Request.Headers["User-Agent"].ToString();   
-           // return Content(userAgent);
-           //判斷是否是行動裝置
-           if(userAgent.Contains("Mobile", StringComparison.OrdinalIgnoreCase))
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            // return Content(userAgent);
+            //判斷是否是行動裝置
+            if (userAgent.Contains("Mobile", StringComparison.OrdinalIgnoreCase))
             {
                 return Content("行動裝置");
             }
@@ -54,6 +57,8 @@ namespace OJTMApp.Controllers
             {
                 return Content("桌面裝置");
             }
+
+            //return NotFound();
 
 
 
