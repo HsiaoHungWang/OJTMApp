@@ -22,6 +22,15 @@ builder.Services.AddScoped<INotificationService, EmailNotificationService>(); //
 //builder.Services.AddSingleton<INotificationService, EmailNotificationService>(); //整個應用程式只會產生一個物件
 
 
+//Session相關設定
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "OJTM.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(5); //Session的有效時間
+    options.Cookie.HttpOnly = true; //無法用JavaScript讀取
+    options.Cookie.IsEssential = true; //必要的Cookie
+});
+
 var app = builder.Build();
 
 
@@ -40,7 +49,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();  //http to https
 
 app.UseRouting();  //啟用路由
-
+app.UseSession();   //啟用Session
 
 app.UseAuthorization();
 

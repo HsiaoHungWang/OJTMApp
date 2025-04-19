@@ -21,7 +21,14 @@ namespace OJTMApp.Controllers
             {
                 ViewData["name"] = name;
             }
-               
+
+            //Session讀取
+            string? userName = HttpContext.Session.GetString("name");
+            string? userAge = HttpContext.Session.GetInt32("Age").ToString();
+            ViewData["userData"] = $"UserName:{userName}，UserAge:{userAge}";
+
+
+
             return View();
         }
 
@@ -38,8 +45,21 @@ namespace OJTMApp.Controllers
             //將登入帳號寫入Cookie
             Response.Cookies.Append("name", "Tom", options);
 
+            //資料寫入Session
+            HttpContext.Session.SetString("name", "Mary");
+            HttpContext.Session.SetInt32("Age", 32);
+
+
             return RedirectToAction("Index");
 
+        }
+
+        public IActionResult DeleteSession()
+        {
+            HttpContext.Session.Clear();   //清除Session所有資料 
+            //HttpContext.Session.Remove("UserName"); //刪除指定的Session資料
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult GetImageFile(string file)
