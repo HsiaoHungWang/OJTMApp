@@ -90,6 +90,23 @@ namespace OJTMApp.Controllers
         {
             return View();
         }
+
+        public IActionResult DayAndNight()
+        {
+            //todo4 讀取Cookies theme 資料
+            //todo5 將資料傳給View
+            
+
+            return View();
+        }
+        public IActionResult SetTheme()
+        {
+            //todo1 要能夠取的使用者選擇的 theme Day/Night
+            //todo2 day/nigth寫進cookies
+            //todo3 轉到DayAndNight的Action
+
+            return View();
+        }
     }
 
 }

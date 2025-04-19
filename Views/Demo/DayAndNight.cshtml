@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "DayAndNight";
+}
+<style>
+    .day {
+        background-color: white;
+        color: #000;
+    }
+
+    .night {
+        background-color: black;
+        color: #fff;
+    }
+
+    #div1{
+        text-align: center;
+        width:500px;
+        height:300px;
+        border:1px solid green;
+    }
+</style>
+<h1>DayAndNight</h1>
+<a href="~/demo/settheme?theme=day" class="btn btn-primary">Day</a>
+<a href="~/demo/settheme?theme=night" class="btn btn-secondary">Night</a>
+
+<!--//todo6 讓View能夠根據使用者的選擇來顯示不同的樣式-->
+<div id="div1" class="day">
+    <h2>白天</h2>
+</div>
+
