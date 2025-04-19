@@ -68,16 +68,27 @@ namespace OJTMApp.Controllers
     
        public IActionResult About()
         {
-            //return View(); //回應的是About.cshtml
+            //ViewData跟ViewBag共用的是同一個字典物件key=value
+            ViewData["currentTime"] = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            ViewBag.currentTime = DateTime.Now.AddHours(1).ToString("yyyy/MM/dd HH:mm:ss");
+            //TempData 搭配 RedirctToAction 來使用
+            TempData["currentTime"] = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+            return View(); //回應的是About.cshtml
+            //return RedirectToAction("Contact");
 
             // return View("Index"); //回應的是Index.cshtml
 
-            return RedirectToAction("Index"); //先回到瀏覽器，再從瀏覽器Request Demo/Index
+            //return RedirectToAction("Index"); //先回到瀏覽器，再從瀏覽器Request Demo/Index
             //return RedirectToAction("Index","Member");
 
             //return Redirect("~/demo/index");
             //return Redirect("~/member/index");
             //return Redirect("https://www.ispan.com.tw");
+        }
+        public IActionResult Contact()
+        {
+            return View();
         }
     }
 

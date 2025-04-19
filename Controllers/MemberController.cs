@@ -11,7 +11,35 @@ namespace OJTMApp.Controllers
         }
         public IActionResult Index()
         {
+            //讀取Cookies
+            string? name = Request.Cookies["name"];
+            if(name == null)
+            {
+               ViewData["name"] = "訪客";
+            }
+            else
+            {
+                ViewData["name"] = name;
+            }
+               
             return View();
+        }
+
+
+        public IActionResult Login()
+        {
+            //Cookie 設定
+            CookieOptions options = new CookieOptions()
+            {
+                Expires = DateTime.Now.AddMinutes(1), //保留1分鐘
+                HttpOnly = true, //無法用JavaScript讀取
+            };
+
+            //將登入帳號寫入Cookie
+            Response.Cookies.Append("name", "Tom", options);
+
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult GetImageFile(string file)
