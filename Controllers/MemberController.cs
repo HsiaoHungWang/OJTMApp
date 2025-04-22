@@ -32,9 +32,18 @@ namespace OJTMApp.Controllers
             return View();
         }
 
-
         public IActionResult Login()
         {
+            return View();
+        }
+
+        //怎麼接收表單送過來的資料 不管是GET還是POST
+        //?userName=abc&userPassword=123
+        [HttpPost]
+        public IActionResult Login(string userName, string userPassword)
+        {
+           ViewBag.Message = $"使用者名稱:{userName}，密碼:{userPassword}";
+
             return View();
 
             ////Cookie 設定
