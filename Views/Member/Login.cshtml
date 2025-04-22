@@ -9,9 +9,11 @@
 <!-- action 屬性如果沒有給，預設就是將資料傳給自己 -->
 <!-- enctype 屬性如果沒有，預設就是 application/x-www-form-urlencoded-->
 <!-- 檔案上傳<input type="file" ... /> 時要把 enctype = "multipart/form-data"  -->
+<!--每個表單元素都要有name屬性-->
 <form method="POST">
-<input type="text" name="userName" placeholder="帳號" />
+    <input type="text" name="userEmail" placeholder="帳號(電子郵件)" />
 <input type="password" name="userPassword"  placeholder="密碼" />
+<input type="checkbox" name="rememberMe" value="yes"/>記住我
 <button>登入</button>
 </form>
 <hr />

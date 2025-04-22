@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OJTMApp.Models.ClassDB;
 using OJTMApp.Models.ViewModel;
 
@@ -42,12 +43,26 @@ namespace OJTMApp.Controllers
         //?userName=abc&userPassword=123
         [HttpPost]
      //   public IActionResult Login(string userName, string userPassword)
-         public IActionResult Login(LoginViewModel loginVM)
+         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
-            string name = loginVM.userName ?? string.Empty;
+            string email = loginVM.userEmail ?? string.Empty;
             string password = loginVM.userPassword ?? string.Empty  ;
+            string rememberMe = loginVM.rememberMe ?? string.Empty;
 
-            ViewBag.Message = $"使用者名稱:{name}，密碼:{password}";
+            //todo 去資料庫比對帳號密碼是否正確
+            Member? member = await db.Members.FirstOrDefaultAsync(m =>m.Email!= null && m.Email.Equals(email));
+            if(member == null)
+            {
+                ViewBag.Message = "查無此帳號";
+
+            }
+            else
+            {
+                //todo: 密碼比對
+
+                ViewBag.Message = "登入成功";
+            }
+              ///  ViewBag.Message = $"使用者名稱:{email}，密碼:{password}, 記住我{rememberMe}";
 
             return View();
 
