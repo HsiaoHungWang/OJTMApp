@@ -35,22 +35,24 @@ namespace OJTMApp.Controllers
 
         public IActionResult Login()
         {
-            //Cookie 設定
-            CookieOptions options = new CookieOptions()
-            {
-                Expires = DateTime.Now.AddMinutes(1), //保留1分鐘
-                HttpOnly = true, //無法用JavaScript讀取
-            };
+            return View();
 
-            //將登入帳號寫入Cookie
-            Response.Cookies.Append("name", "Tom", options);
+            ////Cookie 設定
+            //CookieOptions options = new CookieOptions()
+            //{
+            //    Expires = DateTime.Now.AddMinutes(1), //保留1分鐘
+            //    HttpOnly = true, //無法用JavaScript讀取
+            //};
 
-            //資料寫入Session
-            HttpContext.Session.SetString("name", "Mary");
-            HttpContext.Session.SetInt32("Age", 32);
+            ////將登入帳號寫入Cookie
+            //Response.Cookies.Append("name", "Tom", options);
+
+            ////資料寫入Session
+            //HttpContext.Session.SetString("name", "Mary");
+            //HttpContext.Session.SetInt32("Age", 32);
 
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
 
         }
 
