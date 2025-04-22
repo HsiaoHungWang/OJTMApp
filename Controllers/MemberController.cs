@@ -11,13 +11,17 @@ namespace OJTMApp.Controllers
         public MemberController(ClassDbContext classDbContext) {
             db = classDbContext;
         }
+
+        //會員中心
         public IActionResult Index()
         {
             //讀取Cookies
             string? name = Request.Cookies["name"];
+            
             if(name == null)
             {
-               ViewData["name"] = "訪客";
+                //如果Cookies不存在，則導向登入頁面
+                return RedirectToAction("Login");
             }
             else
             {
@@ -59,8 +63,31 @@ namespace OJTMApp.Controllers
             else
             {
                 //todo: 密碼比對
+                //todo
+                //登入成功就把使用者命名存到Cookie中
 
-                ViewBag.Message = "登入成功";
+                //確認使用者是否有勾選記住我
+                //如果有勾選記住我，把Cookie的有效期限設為7天
+                if (rememberMe == "yes")
+                {
+                    CookieOptions option = new CookieOptions()
+                    {
+                        HttpOnly = true, //無法用JavaScript讀取
+                        Expires = DateTime.Now.AddDays(7) //保留7天
+                    };
+                    Response.Cookies.Append("name", member.Name ?? string.Empty, option);
+                }
+                else
+                {
+                    CookieOptions option = new CookieOptions()
+                    {
+                        HttpOnly = true, //無法用JavaScript讀取                       
+                    };
+                    //不設Expires，則預設為Session Cookies，關閉瀏覽器後就會消失
+                    Response.Cookies.Append("name", member.Name ?? string.Empty, option);
+                }
+
+                    ViewBag.Message = "登入成功";
             }
               ///  ViewBag.Message = $"使用者名稱:{email}，密碼:{password}, 記住我{rememberMe}";
 
