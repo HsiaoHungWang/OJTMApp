@@ -3,6 +3,21 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">MVC, 你好</h1>
+    @{
+        string strNum = "3571";
+        @:您是第
+        foreach(var c in strNum)
+        {
+            @*註解一下*@
+            <img src="~/images/@(c).png" />
+        }
+
+        <text>位的來賓</text>
+
+        string str = "<h2>台北市復興南路一段</h2>";
+    }
+    <h1 class="display-4">MVC, 你好，@@office</h1>
+    <h2>電子郵件 wang@ispan.com.tw </h2>
+    @Html.Raw(str)
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
