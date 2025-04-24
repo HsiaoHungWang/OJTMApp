@@ -1,6 +1,26 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
+
+@section Styles{
+    <style>
+        h1 {
+            background-color: khaki;
+        }
+    </style>
+}
+
 <h1>@ViewData["Title"]</h1>
 
 <p>這是一個 Privacy的View</p>
+
+@section Scripts{
+    <script>
+        $('h1').on('mouseover',()=>{
+            $('h1').css('color','green');
+        }).on('mouseout',()=>{
+            $('h1').css('color','black');
+        })
+    </script>
+}
+

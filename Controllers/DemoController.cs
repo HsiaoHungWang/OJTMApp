@@ -46,24 +46,24 @@ namespace OJTMApp.Controllers
             //}
 
             //User-Agent
-            var userAgent = Request.Headers["User-Agent"].ToString();
-            // return Content(userAgent);
-            //判斷是否是行動裝置
-            if (userAgent.Contains("Mobile", StringComparison.OrdinalIgnoreCase))
-            {
-                return Content("行動裝置");
-            }
-            else
-            {
-                return Content("桌面裝置");
-            }
+            //var userAgent = Request.Headers["User-Agent"].ToString();
+            //// return Content(userAgent);
+            ////判斷是否是行動裝置
+            //if (userAgent.Contains("Mobile", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    return Content("行動裝置");
+            //}
+            //else
+            //{
+            //    return Content("桌面裝置");
+            //}
 
             //return NotFound();
 
 
 
 
-            //return View();
+            return View();
         }
     
        public IActionResult About()

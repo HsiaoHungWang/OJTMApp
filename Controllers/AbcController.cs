@@ -13,7 +13,7 @@ namespace OJTMApp.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Message = _notificationService.SendMessage("xyz@company.com", "Hello, DI!!");
+            //ViewBag.Message = _notificationService.SendMessage("xyz@company.com", "Hello, DI!!");
             return View();
         }
     }
