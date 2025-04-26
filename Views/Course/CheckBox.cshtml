@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "CheckBox";
+}
+
+<h1>CheckBox Demo</h1>
+<form method="POST">
+    @foreach (var day in ViewBag.DaysOfWeek)
+    {
+        <input class="form-check-input" id="@day" type="checkbox" value="@day" name="daysOfWeek">
+        <label class="form-check-label" for="@day">
+            @day
+        </label>
+    }
+    <button class="btn btn-primary">送出</button>
+</form>
+<hr />
+<p>@ViewBag.Message</p>
+
+
+

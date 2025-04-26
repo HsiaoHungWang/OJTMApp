@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OJTMApp.Models.ClassDB;
+using System;
 
 namespace OJTMApp.Controllers
 {
@@ -20,7 +21,7 @@ namespace OJTMApp.Controllers
         public IActionResult Create()
         {
             //asp-items => SelectList
-            ViewBag.categories = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            ViewBag.Categories = new SelectList(db.Categories, "CategoryId", "CategoryName");
             return View();
         }
 
@@ -32,5 +33,30 @@ namespace OJTMApp.Controllers
             await db.SaveChangesAsync();
             return View();
         }
-    }
+
+        public IActionResult CheckBox()
+        {
+            List<string> DaysOfWeek = new List<string>()
+            {
+                "一","二", "三", "四", "五", "六", "日"
+            };
+
+            ViewBag.DaysOfWeek = DaysOfWeek;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CheckBox(List<string> daysOfWeek)
+        {
+            List<string> DaysOfWeek = new List<string>()
+            {
+                "一","二", "三", "四", "五", "六", "日"
+            };
+
+            ViewBag.DaysOfWeek = DaysOfWeek;
+            ViewBag.Message = $"選擇的是 {string.Join(",", daysOfWeek)}";
+            return View();
+        }
+        }
 }
