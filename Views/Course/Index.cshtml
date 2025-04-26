@@ -1,9 +1,33 @@
-﻿
+﻿@model IEnumerable<OJTMApp.Models.ClassDB.Course>
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Course Index</h1>
-<img src="~/images/cat1.jpg" alt="cat" class="img-thumbnail w-25" />
-<img src="@Url.Action("GetImageFile", "Member", new{file="cat2.jpg"})"  class="img-thumbnail w-25" />
-<img src="@Url.Action("Avatar", "Member", new{id=3})" class="img-thumbnail w-25" />
+@* <img src="~/images/cat1.jpg" alt="cat" class="img-thumbnail w-25" /> *@
+@* <img src="@Url.Action("GetImageFile", "Member", new{file="cat2.jpg"})"  class="img-thumbnail w-25" /> *@
+@* <img src="@Url.Action("Avatar", "Member", new{id=3})" class="img-thumbnail w-25" /> *@
+
+<a asp-action="create" class="btn btn-secondary">課程新增</a>
+<hr />
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach(var course in Model)
+    {
+        <div class="col">
+            <div class="card">
+                <img src="@Url.Action("GetImageFile","Course",new{file=course.CourseImage})" class="card-img-top" alt="@course.CourseName">
+                <div class="card-body">
+                    <h5 class="card-title">@course.CourseName</h5>
+                    <p class="card-text">開課日期：@course.StartDate</p>
+                    <p class="card-text">優惠價：@course.CoursePrice</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary"><span class="badge text-bg-secondary">@course.CourseHour</span> <span class="badge text-bg-secondary">@course.Location</span> </small>
+                </div>
+            </div>
+        </div>
+
+    }
+  
+</div>
+

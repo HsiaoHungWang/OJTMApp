@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using OJTMApp.Models.ClassDB;
 using OJTMApp.Models.ViewModel;
 using System;
@@ -17,9 +18,17 @@ namespace OJTMApp.Controllers
             db = _dbContext;
             _hostEnvironment = hostEnvironment;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            //讀取所有課程資料
+            var courses = await db.Courses.ToListAsync();
+            return View(courses);
+        }
+
+        public IActionResult GetImageFile(string file)
+        {
+            //return Content(file);
+            return File($"~/courses/{file}", "image/webp");
         }
 
         //新增課程的View
