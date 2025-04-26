@@ -1,0 +1,22 @@
+﻿@model OJTMApp.Models.ClassDB.Course
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>新增課程</h1>
+<form asp-action="Create">
+    <div class="mb-3 row">
+        <label asp-for="CategoryId" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input  class="form-control" asp-for="CategoryId" >
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label asp-for="CourseName" class=" col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="CourseName">
+        </div>
+    </div>
+</form>
+
