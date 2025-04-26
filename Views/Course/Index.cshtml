@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Course Index</h1>
+<img src="~/images/cat1.jpg" alt="cat" class="img-thumbnail w-25" />
+<img src="@Url.Action("GetImageFile", "Member", new{file="cat2.jpg"})"  class="img-thumbnail w-25" />
+<img src="@Url.Action("Avatar", "Member", new{id=3})" class="img-thumbnail w-25" />
