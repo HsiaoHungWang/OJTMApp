@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OJTMApp.Models.ClassDB;
+namespace OJTMApp.Models.ViewModel;
 
-public partial class Course
+public partial class CourseViewModel
 {
-    public int CourseId { get; set; }
-
-    public int? CategoryId { get; set; }
+     public int? CategoryId { get; set; }
 
     public string? CourseName { get; set; }
 
-    public string? CourseImage { get; set; }  //IFormFile
+    public IFormFile? CourseImage { get; set; }
 
     public int? CoursePrice { get; set; }
 
@@ -27,13 +25,10 @@ public partial class Course
 
     public DateOnly? EndDate { get; set; }
 
-    public string? DaysOfWeek { get; set; }  //List<string>
+    public List<string>? DaysOfWeek { get; set; }
 
     public string? TimePeriods { get; set; }
 
     public string? Location { get; set; }
-
-    public virtual Category? Category { get; set; }
-
-    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+   
 }

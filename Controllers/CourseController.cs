@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using OJTMApp.Models.ClassDB;
+using OJTMApp.Models.ViewModel;
 using System;
 
 namespace OJTMApp.Controllers
@@ -36,12 +38,47 @@ namespace OJTMApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Course course)
+        public async Task<IActionResult> Create(CourseViewModel course)
         {
-            //新增
-            await db.Courses.AddAsync(course);
+            if (course.CourseImage != null)
+            {
+              
+                //檔案上傳的路徑
+                 var filePath = Path.Combine(_hostEnvironment.WebRootPath, "courses", course.CourseImage.FileName);
+            //檔案上傳
+                        using (var stram = new FileStream(filePath, FileMode.Create))
+                        {
+                    await course.CourseImage.CopyToAsync(stram);
+                        }
+            }
+           
+
+
+            //透過ViewModel收到資料後
+            //將資料轉換成Course物件
+            //才能新增
+            Course _course = new Course()
+            {
+                CategoryId = course.CategoryId,
+                CourseName = course.CourseName,
+                CourseImage = course.CourseImage?.FileName,
+                CoursePrice = course.CoursePrice,
+                CourseHour = course.CourseHour,
+                Description = course.Description,
+                Objectives = course.Objectives,
+                Suitable = course.Suitable,
+                StartDate = course.StartDate,
+                EndDate = course.EndDate,
+                DaysOfWeek = course.DaysOfWeek != null ? string.Join("、", course.DaysOfWeek) : "",
+                TimePeriods = course.TimePeriods,
+                Location = course.Location
+            };
+
+            await db.Courses.AddAsync(_course);
             await db.SaveChangesAsync();
-            return View();
+            // await Task.Delay(1000);
+
+            return RedirectToAction("Create");
         }
 
         public IActionResult CheckBox()
