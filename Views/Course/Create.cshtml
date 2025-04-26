@@ -69,7 +69,13 @@
     <div class="mb-3 row">
         <label asp-for="DaysOfWeek" class=" col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input class="form-control" asp-for="DaysOfWeek">
+            @foreach (var day in ViewBag.DaysOfWeek)
+            {
+                <input class="form-check-input" id="@day" type="checkbox" value="@day" name="DaysOfWeek">
+                <label class="form-check-label" for="@day">
+                    @day
+                </label>
+            }
         </div>
     </div>
     <div class="mb-3 row">

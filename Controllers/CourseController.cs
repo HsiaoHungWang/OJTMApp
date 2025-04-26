@@ -22,6 +22,12 @@ namespace OJTMApp.Controllers
         {
             //asp-items => SelectList
             ViewBag.Categories = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            List<string> DaysOfWeek = new List<string>()
+            {
+                "一","二", "三", "四", "五", "六", "日"
+            };
+
+            ViewBag.DaysOfWeek = DaysOfWeek;
             return View();
         }
 
