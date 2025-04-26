@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using OJTMApp.Models.ClassDB;
 
 namespace OJTMApp.Controllers
@@ -18,6 +19,8 @@ namespace OJTMApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            //asp-items => SelectList
+            ViewBag.categories = new SelectList(db.Categories, "CategoryId", "CategoryName");
             return View();
         }
 
