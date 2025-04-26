@@ -13,7 +13,7 @@ namespace OJTMApp.Controllers
         }
 
         //會員中心
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //讀取Cookies
             string? name = Request.Cookies["name"];
@@ -34,8 +34,9 @@ namespace OJTMApp.Controllers
             ViewData["userData"] = $"UserName:{userName}，UserAge:{userAge}";
 
 
-
-            return View();
+            //讀取會員的所有資料
+            var members = await db.Members.ToListAsync();
+            return View(members);
         }
 
         public IActionResult Login()

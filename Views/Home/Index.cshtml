@@ -19,5 +19,11 @@
     <h1 class="display-4">MVC, 你好，@@office</h1>
     <h2>電子郵件 wang@ispan.com.tw </h2>
     @Html.Raw(str)
+    <hr />
+    <h2>HTML Helper</h2>
+  
+    @Html.TextBox("UserName")
+    @Html.TextBox("UserName", "Guest")
+    @Html.TextBox("UserName", "Guest", new{style="background-color:silver", title="請輸入姓名"})
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
