@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using OJTMApp.Models.ClassDB;
 using System;
 
@@ -8,9 +9,11 @@ namespace OJTMApp.Controllers
     public class CourseController : Controller
     {
         private readonly ClassDbContext db;
-        public CourseController(ClassDbContext _dbContext)
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public CourseController(ClassDbContext _dbContext, IWebHostEnvironment hostEnvironment)
         {
             db = _dbContext;
+            _hostEnvironment = hostEnvironment;
         }
         public IActionResult Index()
         {
@@ -68,13 +71,27 @@ namespace OJTMApp.Controllers
 
         public IActionResult Upload()
         {
+            ViewBag.Message = $"{_hostEnvironment.WebRootPath}";
             return View();
         }
 
         [HttpPost]
-        public IActionResult Upload(IFormFile formFile)
+        public async Task<IActionResult> Upload(IFormFile formFile)
         {
-            ViewBag.Message = $"{formFile.FileName} - {formFile.Length} - {formFile.ContentType}";
+            //formFile.FileName
+            //C:\工作區\workspace\OJTMApp\wwwroot\courses\
+            //WebRootPath => C:\工作區\workspace\OJTMApp\wwwroot
+            //ContentRootPath => C:\工作區\workspace\OJTMApp
+
+            //檔案上傳的路徑
+            var filePath = Path.Combine(_hostEnvironment.WebRootPath, "courses", formFile.FileName);
+
+            //檔案上傳
+            using (var stram = new FileStream(filePath, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stram);
+            }
+                ViewBag.Message = $"檔案上傳成功：{filePath}"; // $"{formFile.FileName} - {formFile.Length} - {formFile.ContentType}";
             return View();
         }
     }
