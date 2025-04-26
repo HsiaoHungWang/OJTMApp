@@ -8,7 +8,8 @@ namespace OJTMApp.Controllers
     public class CourseController : Controller
     {
         private readonly ClassDbContext db;
-        public CourseController(ClassDbContext _dbContext) {
+        public CourseController(ClassDbContext _dbContext)
+        {
             db = _dbContext;
         }
         public IActionResult Index()
@@ -64,5 +65,17 @@ namespace OJTMApp.Controllers
             ViewBag.Message = $"選擇的是 {string.Join(",", daysOfWeek)}";
             return View();
         }
+
+        public IActionResult Upload()
+        {
+            return View();
         }
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile formFile)
+        {
+            ViewBag.Message = $"{formFile.FileName} - {formFile.Length} - {formFile.ContentType}";
+            return View();
+        }
+    }
 }
