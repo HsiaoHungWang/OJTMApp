@@ -21,15 +21,39 @@ namespace OJTMApp.Controllers
         //page 是第幾頁的資料
         public async Task<IActionResult> Index(string sort, int page = 1)
         {
+           
             // 讀取所有課程資料
             var courses = db.Courses.AsQueryable();
 
             //排序
             //預設排序欄位
-            ViewData["id"] = String.IsNullOrEmpty(sort) ? "id" : "";
+            ViewData["id"] = String.IsNullOrEmpty(sort) ? "-id" : "";
             //三元運算子  var data = true ? "aaaa" : "bbbb"
             ViewData["price"] = sort == "price" ? "-price" : "price";
             ViewData["hour"] = sort == "hour" ? "-hour" : "hour";
+
+            switch (sort)
+            {
+                case "-id":
+                    courses = courses.OrderByDescending(c => c.CourseId);
+                    break;
+                case "price":
+                    courses = courses.OrderBy(c => c.CoursePrice);
+                    break;
+                case "-price":
+                    courses = courses.OrderByDescending(c => c.CoursePrice);
+                    break;
+                case "hour":
+                    courses = courses.OrderBy(c => c.CourseHour);
+                    break;
+                case "-hour":
+                    courses = courses.OrderByDescending(c => c.CourseHour);
+                    break;
+                default:
+                    courses = courses.OrderBy(c => c.CourseId);
+                    break;
+            }
+
 
             // 分頁
             int PageSize = 3; // 每頁顯示的筆數

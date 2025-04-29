@@ -1,6 +1,7 @@
 ﻿@model OJTMApp.Models.ViewModel.CoursesPagingViewModel;
 @{
     ViewData["Title"] = "Index";
+    var sort = ViewContext.HttpContext.Request.Query["sort"];
 }
 
 <h1>Course Index</h1>
@@ -17,7 +18,9 @@
                 <!--totalPage = 4-->
                 @foreach (var i in Enumerable.Range(1, Model.TotalPage))
                 {
-                    <li class="page-item"><a class="page-link" href="@Url.Action("Index","Course",new{page=i})">@i</a></li>
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index","Course",new{page=i,sort})">@i</a></li>
+
+                    <!--/?page=1&sort=price-->
                 }
 
             </ul>
@@ -30,8 +33,7 @@
            <option value="@ViewData["id"]">課程編號</option>   @* <!--id 小到大，-id 大到小-> *@
            <option value="@ViewData["price"]">課程價錢</option>
            <option value="@ViewData["hour"]">課程時數</option>
-        </select>
-       
+        </select>       
         </form>
     </div>
     <div class="col-4"></div>
@@ -44,7 +46,7 @@
             <div class="card">
                 <img src="@Url.Action("GetImageFile","Course",new{file=course.CourseImage})" class="card-img-top" alt="@course.CourseName">
                 <div class="card-body">
-                    <h5 class="card-title">@course.CourseName</h5>
+                    <h5 class="card-title">@course.CourseId  course.CourseName</h5>
                     <p class="card-text">開課日期：@course.StartDate</p>
                     <p class="card-text">優惠價：@course.CoursePrice</p>
                 </div>
