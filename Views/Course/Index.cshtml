@@ -10,18 +10,35 @@
 
 <a asp-action="create" class="btn btn-secondary">課程新增</a>
 <hr />
-<nav aria-label="Page navigation example">
-    <ul class="pagination">   
-        <!--totalPage = 4-->
-        @foreach(var i in Enumerable.Range(1, Model.TotalPage)) 
-        {
-             <li class="page-item"><a class="page-link" href="@Url.Action("Index","Course",new{page=i})">@i</a></li>     
-        }
-        
-    </ul>
-</nav>
+<div class="row">
+    <div class="col-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <!--totalPage = 4-->
+                @foreach (var i in Enumerable.Range(1, Model.TotalPage))
+                {
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index","Course",new{page=i})">@i</a></li>
+                }
+
+            </ul>
+        </nav>
+    </div>
+    <div class="col-4">
+        <form>
+        <select class="form-select" name="sort" onchange="this.form.submit()">
+           <option value="">請選擇排序欄位</option>
+           <option value="@ViewData["id"]">課程編號</option>   @* <!--id 小到大，-id 大到小-> *@
+           <option value="@ViewData["price"]">課程價錢</option>
+           <option value="@ViewData["hour"]">課程時數</option>
+        </select>
+       
+        </form>
+    </div>
+    <div class="col-4"></div>
+</div>
+
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach(var course in Model.Courses)
+    @foreach (var course in Model.Courses)
     {
         <div class="col">
             <div class="card">

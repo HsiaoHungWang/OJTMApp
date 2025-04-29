@@ -19,10 +19,17 @@ namespace OJTMApp.Controllers
             _hostEnvironment = hostEnvironment;
         }
         //page 是第幾頁的資料
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string sort, int page = 1)
         {
             // 讀取所有課程資料
             var courses = db.Courses.AsQueryable();
+
+            //排序
+            //預設排序欄位
+            ViewData["id"] = String.IsNullOrEmpty(sort) ? "id" : "";
+            //三元運算子  var data = true ? "aaaa" : "bbbb"
+            ViewData["price"] = sort == "price" ? "-price" : "price";
+            ViewData["hour"] = sort == "hour" ? "-hour" : "hour";
 
             // 分頁
             int PageSize = 3; // 每頁顯示的筆數
