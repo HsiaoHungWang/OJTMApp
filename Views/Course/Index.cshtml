@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OJTMApp.Models.ClassDB.Course>
+﻿@model OJTMApp.Models.ViewModel.CoursesPagingViewModel;
 @{
     ViewData["Title"] = "Index";
 }
@@ -10,8 +10,18 @@
 
 <a asp-action="create" class="btn btn-secondary">課程新增</a>
 <hr />
+<nav aria-label="Page navigation example">
+    <ul class="pagination">   
+        <!--totalPage = 4-->
+        @foreach(var i in Enumerable.Range(1, Model.TotalPage)) 
+        {
+             <li class="page-item"><a class="page-link" href="@Url.Action("Index","Course",new{page=i})">@i</a></li>     
+        }
+        
+    </ul>
+</nav>
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach(var course in Model)
+    @foreach(var course in Model.Courses)
     {
         <div class="col">
             <div class="card">

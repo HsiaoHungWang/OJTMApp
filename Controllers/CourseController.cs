@@ -18,11 +18,25 @@ namespace OJTMApp.Controllers
             db = _dbContext;
             _hostEnvironment = hostEnvironment;
         }
-        public async Task<IActionResult> Index()
+        //page 是第幾頁的資料
+        public async Task<IActionResult> Index(int page = 1)
         {
-            //讀取所有課程資料
-            var courses = await db.Courses.ToListAsync();
-            return View(courses);
+            // 讀取所有課程資料
+            var coursesQuery = db.Courses.AsQueryable();
+
+            // 分頁
+            int PageSize = 3; // 每頁顯示的筆數
+            var totalCount = await coursesQuery.CountAsync(); // 總筆數
+            var totalPage = (int)Math.Ceiling((double)totalCount / PageSize); // 總頁數
+            var courses = await coursesQuery.Skip((page - 1) * PageSize).Take(PageSize).ToListAsync(); // 跳過前面幾筆資料並取得指定筆數的資料
+
+            CoursesPagingViewModel courseVM = new CoursesPagingViewModel
+            {
+                TotalPage = totalPage,
+                Courses = courses
+            };
+
+            return View(courseVM);
         }
 
         public IActionResult GetImageFile(string file)
@@ -47,6 +61,7 @@ namespace OJTMApp.Controllers
         }
 
         [HttpPost]
+      
         public async Task<IActionResult> Create(CourseViewModel course)
         {
             if (course.CourseImage != null)
@@ -60,9 +75,8 @@ namespace OJTMApp.Controllers
                     await course.CourseImage.CopyToAsync(stram);
                         }
             }
-           
 
-
+          
             //透過ViewModel收到資料後
             //將資料轉換成Course物件
             //才能新增
