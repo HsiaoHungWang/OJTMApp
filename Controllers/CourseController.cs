@@ -22,18 +22,18 @@ namespace OJTMApp.Controllers
         public async Task<IActionResult> Index(int page = 1)
         {
             // 讀取所有課程資料
-            var coursesQuery = db.Courses.AsQueryable();
+            var courses = db.Courses.AsQueryable();
 
             // 分頁
             int PageSize = 3; // 每頁顯示的筆數
-            var totalCount = await coursesQuery.CountAsync(); // 總筆數
+            var totalCount = await courses.CountAsync(); // 總筆數
             var totalPage = (int)Math.Ceiling((double)totalCount / PageSize); // 總頁數
-            var courses = await coursesQuery.Skip((page - 1) * PageSize).Take(PageSize).ToListAsync(); // 跳過前面幾筆資料並取得指定筆數的資料
+             courses = courses.Skip((page - 1) * PageSize).Take(PageSize); // 跳過前面幾筆資料並取得指定筆數的資料
 
             CoursesPagingViewModel courseVM = new CoursesPagingViewModel
             {
                 TotalPage = totalPage,
-                Courses = courses
+                Courses = await courses.ToListAsync()
             };
 
             return View(courseVM);
