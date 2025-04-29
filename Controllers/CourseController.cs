@@ -19,11 +19,21 @@ namespace OJTMApp.Controllers
             _hostEnvironment = hostEnvironment;
         }
         //page 是第幾頁的資料
-        public async Task<IActionResult> Index(string sort, int page = 1)
+        public async Task<IActionResult> Index(string keyword, string sort, int page = 1)
         {
            
             // 讀取所有課程資料
             var courses = db.Courses.AsQueryable();
+
+            //相似度搜尋
+            if(!string.IsNullOrEmpty(keyword))
+            {
+           
+                courses = courses.Where(c => c.CourseName != null && c.CourseName.Contains(keyword));
+               
+            }
+
+
 
             //排序
             //預設排序欄位

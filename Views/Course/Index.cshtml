@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     var sort = ViewContext.HttpContext.Request.Query["sort"];
+    var keyword = ViewContext.HttpContext.Request.Query["keyword"];
 }
 
 <h1>Course Index</h1>
@@ -18,7 +19,7 @@
                 <!--totalPage = 4-->
                 @foreach (var i in Enumerable.Range(1, Model.TotalPage))
                 {
-                    <li class="page-item"><a class="page-link" href="@Url.Action("Index","Course",new{page=i,sort})">@i</a></li>
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index","Course",new{page=i, sort, keyword})">@i</a></li>
 
                     <!--/?page=1&sort=price-->
                 }
@@ -36,7 +37,16 @@
         </select>       
         </form>
     </div>
-    <div class="col-4"></div>
+    <div class="col-4">
+        <form class="row g-3">          
+            <div class="col-auto">              
+                <input type="search" class="form-control" name="keyword" placeholder="請輸入課程名稱">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">搜尋</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -46,7 +56,7 @@
             <div class="card">
                 <img src="@Url.Action("GetImageFile","Course",new{file=course.CourseImage})" class="card-img-top" alt="@course.CourseName">
                 <div class="card-body">
-                    <h5 class="card-title">@course.CourseId  course.CourseName</h5>
+                    <h5 class="card-title">@course.CourseId  @course.CourseName</h5>
                     <p class="card-text">開課日期：@course.StartDate</p>
                     <p class="card-text">優惠價：@course.CoursePrice</p>
                 </div>
