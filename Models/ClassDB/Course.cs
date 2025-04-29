@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OJTMApp.Models.ClassDB;
 
 public partial class Course
 {
+    [Display(Name ="課程編號")]
     public int CourseId { get; set; }
 
     public int? CategoryId { get; set; }
 
+    [Display(Name = "課程名稱")]
     public string? CourseName { get; set; }
 
     public string? CourseImage { get; set; }  //IFormFile

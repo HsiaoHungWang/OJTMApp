@@ -39,6 +39,11 @@ namespace OJTMApp.Controllers
             return View(members);
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         public IActionResult Login()
         {
             return View();
