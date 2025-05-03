@@ -8,8 +8,9 @@ namespace OJTMApp.Models
     {
     }
 
-    //[ModelMetadataTypeAttribute(typeof(MemberMetadata))]
-    //public partial class Member
-    //{
-    //}
+   [ModelMetadataTypeAttribute(typeof(ProductMetadata))]
+    public partial class Product
+    {
+       
+    }
 }

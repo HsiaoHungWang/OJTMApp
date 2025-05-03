@@ -26,4 +26,6 @@
     @Html.TextBox("UserName", "Guest")
     @Html.TextBox("UserName", "Guest", new{style="background-color:silver", title="請輸入姓名"})
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+@await Html.PartialAsync("_PartialView1")
 </div>

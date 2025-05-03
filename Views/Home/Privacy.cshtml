@@ -13,6 +13,16 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>這是一個 Privacy的View</p>
+<hr />
+
+@await Component.InvokeAsync("First", new {count=5})
+<vc:first count = "10"></vc:first>
+
+<hr />
+
+<partial name="_PartialView1" />
+<partial name="_PartialView2" />
+@await Html.PartialAsync("_PartialView1")
 
 @section Scripts{
     <script>
