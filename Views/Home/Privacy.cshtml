@@ -14,7 +14,12 @@
 
 <p>這是一個 Privacy的View</p>
 <hr />
+@await Component.InvokeAsync("PopularProducts")
+@await Component.InvokeAsync("PopularProducts", new {top=5})
 
+<vc:popular-products top="10"></vc:popular-products>
+
+<hr />
 @await Component.InvokeAsync("First", new {count=5})
 <vc:first count = "10"></vc:first>
 

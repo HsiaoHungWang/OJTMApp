@@ -1,0 +1,8 @@
+﻿@model IEnumerable<OJTMApp.Models.Product>
+<h2>熱門商品</h2>
+<ul class="list-group">
+    @foreach(var product in Model)
+    {
+          <li class="list-group-item">@product.ProductName</li>
+    }  
+</ul>
