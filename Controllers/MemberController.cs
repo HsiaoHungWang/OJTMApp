@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OJTMApp.Models;
 using OJTMApp.Models.ClassDB;
 using OJTMApp.Models.ViewModel;
 
@@ -8,8 +9,11 @@ namespace OJTMApp.Controllers
     public class MemberController : Controller
     {
         private readonly ClassDbContext db;
-        public MemberController(ClassDbContext classDbContext) {
+        private readonly NorthwindContext _context;
+        public MemberController(ClassDbContext classDbContext, NorthwindContext context) {
             db = classDbContext;
+            _context = context;
+
         }
 
         //會員中心
@@ -201,5 +205,19 @@ namespace OJTMApp.Controllers
 
         }
 
+
+        //統計訂單的數量及金額
+        public async Task<IActionResult> Order()
+        {
+          var orderSummary =  await _context.Orders.Take(10).Select(o=> new OrderSummaryViewModel
+          {
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate,
+                OrderQty = o.OrderDetails.Count(),
+                OrderAmount = o.OrderDetails.Sum(od=>od.Quantity * od.UnitPrice)
+            }).ToListAsync();
+
+            return View(orderSummary);
+        }
     }
 }

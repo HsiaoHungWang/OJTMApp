@@ -1,0 +1,28 @@
+﻿@model IEnumerable<OJTMApp.Models.ViewModel.OrderSummaryViewModel>
+@{
+    ViewData["Title"] = "Order";
+}
+
+<h1>Order</h1>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(Model => Model.OrderId)</th>
+            <th>@Html.DisplayNameFor(Model => Model.OrderDate)</th>
+            <th>@Html.DisplayNameFor(Model => Model.OrderQty)</th>
+            <th>@Html.DisplayNameFor(Model => Model.OrderAmount)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(ModelItem => item.OrderId)</td>
+                <td>@Html.DisplayFor(ModelItem => item.OrderDate)</td>
+                <td>@Html.DisplayFor(ModelItem => item.OrderQty)</td>
+                <td>@Html.DisplayFor(ModelItem => item.OrderAmount)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
