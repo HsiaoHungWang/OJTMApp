@@ -53,6 +53,10 @@ namespace OJTMApp.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel registerVM)
         {
+            if(registerVM.Age == 20)
+            {
+                ModelState.AddModelError("Age", "年紀不能是20歲");
+            }
             if (ModelState.IsValid)
             {
                 //通過驗證
@@ -61,6 +65,22 @@ namespace OJTMApp.Controllers
                 ViewBag.Message = "驗證成功!!";
             }
             return View();
+        }
+
+        //檢查資料庫中是否有這個Email
+        public async Task<IActionResult> VerifyEamil(string email)
+        {
+            Member? member = await db.Members.FirstOrDefaultAsync(m => m.Email == email);
+            if(member != null)
+            {
+                //有這個Email
+                return Json($"Email {email} 已經被註冊");
+            }
+            //else
+            //{
+                //沒有這個Email
+                return Json(true);
+            //}
         }
 
         public IActionResult Login()
