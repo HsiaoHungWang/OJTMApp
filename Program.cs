@@ -60,6 +60,13 @@ app.MapStaticAssets();
 //product/list => ProductController/list action/12
 //member/login => MemberController/login action/a123
 
+
+    app.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
