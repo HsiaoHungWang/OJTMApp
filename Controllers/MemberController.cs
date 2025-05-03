@@ -41,11 +41,29 @@ namespace OJTMApp.Controllers
 
         public IActionResult Register()
         {
+            if (ModelState.IsValid)
+            {
+                //通過驗證
+                //資料寫進資料庫
+             //  return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Regsiter(RegisterViewModel registerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                //通過驗證
+                //資料寫進資料庫
+              //  return RedirectToAction("Index");   
+            }
             return View();
         }
 
         public IActionResult Login()
-        {
+      {
             return View();
         }
 
